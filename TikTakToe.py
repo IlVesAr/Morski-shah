@@ -16,30 +16,28 @@ x = [0, 0, 0]
 y = [0, 0, 0]
 d = [0, 0]
 
+butoni = [True, True, True, True, True, True, True, True, True]
+
 x_o = [StringVar(kk), StringVar(kk), StringVar(kk), StringVar(kk), StringVar(kk), StringVar(kk), StringVar(kk),
        StringVar(kk),
        StringVar(kk)]
+
 for i in x_o:
     i.set(".")
 
+
 def nulirane():
-    global x, y, d, koi, x_o
-    x[0] = 0
-    x[1] = 0
-    x[2] = 0
-
-    y[0] = 0
-    y[1] = 0
-    y[2] = 0
-
-    d[0] = 0
-    d[1] = 0
+    global x, y, d, koi, x_o, butoni
+    x = [0, 0, 0]
+    y = [0, 0, 0]
+    d = [0, 0]
 
     koi = 0
 
+    butoni = [True, True, True, True, True, True, True, True, True]
+
     for i2 in x_o:
         i2.set(".")
-
 
 
 def cikal(kol, koia, a):
@@ -51,21 +49,7 @@ def cikal(kol, koia, a):
         if i1 == kol:
             koia += 1
 
-            x[0] = 0
-            x[1] = 0
-            x[2] = 0
-
-            y[0] = 0
-            y[1] = 0
-            y[2] = 0
-
-            d[0] = 0
-            d[1] = 0
-
-            koi = 0
-
-            for i2 in x_o:
-                i2.set(".")
+            nulirane()
 
             break
 
@@ -88,31 +72,36 @@ def puton(c):
     global x, y, d
     global koi
     global x_o
-    if koi % 2 == 0:
-        x[(c % 3) - 1] += 4
-        y[(c - 1) // 3] += 4
-        if (c % 2) == 1 and 1 != c and c != 9:
-            d[0] += 4
-        if (c % 2) == 1 and 3 != c and c != 7:
-            d[1] += 4
+    global butoni
 
-        x_o[c - 1].set("O")
+    if butoni[c - 1]:
+        if koi % 2 == 0:
+            x[(c % 3) - 1] += 4
+            y[(c - 1) // 3] += 4
+            if (c % 2) == 1 and 1 != c and c != 9:
+                d[0] += 4
+            if (c % 2) == 1 and 3 != c and c != 7:
+                d[1] += 4
 
-        rez_o = check(12, rez_o)
+            x_o[c - 1].set("O")
 
-    else:
-        x[(c % 3) - 1] += 1
-        y[(c - 1) // 3] += 1
-        if (c % 2) == 1 and 1 != c != 9:
-            d[0] += 1
-        if (c % 2) == 1 and 3 != c != 7:
-            d[1] += 1
+            rez_o = check(12, rez_o)
 
-        x_o[c - 1].set("X")
+        else:
+            x[(c % 3) - 1] += 1
+            y[(c - 1) // 3] += 1
+            if (c % 2) == 1 and 1 != c != 9:
+                d[0] += 1
+            if (c % 2) == 1 and 3 != c != 7:
+                d[1] += 1
 
-        rez_x = check(3, rez_x)
+            x_o[c - 1].set("X")
 
-    koi += 1
+            rez_x = check(3, rez_x)
+
+        butoni[c - 1] = False
+
+        koi += 1
 
     o_ta.set(f"O-ta: {rez_o}")
     x_ove.set(f"X-ove: {rez_x}")
@@ -160,10 +149,10 @@ bt2.place(x=70, y=80)
 
 lb = Label(kk, textvariable=o_ta)
 lb.pack()
-#lb.place(x=10, y=70)
+lb.place(x=10, y=100)
 
 lb2 = Label(kk, textvariable=x_ove)
 lb2.pack()
-#lb2.place(x=10, y=90)
+lb2.place(x=10, y=130)
 
 kk.mainloop()
