@@ -39,10 +39,3 @@ def puton(c):
             d[2] += 1
 
 
-
-echo "# Mrski-shah" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/IlVesAr/Mrski-shah.git
-git push -u origin master
